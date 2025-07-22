@@ -10,7 +10,7 @@
     $controller = new StudentControllers();
     $page = $_GET['page'] ?? 'index';
 
-    $id = null;
+    $id = $_GET['id'] ?? null;
 
     switch($page){
         case 'create':
@@ -18,6 +18,9 @@
             break;
         case 'edit':
             $controller->update($id);
+            break;
+        case 'destroy':
+            $controller->destroy($id);
             break;
         default:
             $controller->index();

@@ -4,7 +4,8 @@
 <table class="table table-bordered table-hover">
       <thead class="table-dark">
         <tr>
-          <th>ID</th>
+          <th class="text-center">N<sup>o</sup></th>
+          <th>USER-ID</th>
           <th>Name</th>
           <th>Gender</th>
           <th>Telephone</th>
@@ -12,35 +13,42 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Alice Smith</td>
-          <td>Female</td>
-          <td>01230321</td>
-          <td class="text-center">
-            <a href="index.php?page=edit" class="btn btn-sm btn-warning">Edit</a>
-            <a href="#" class="btn btn-sm btn-danger">Delete</a>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>John Doe</td>
-          <td>Male</td>
-          <td>01230321</td>
-          <td class="text-center" >
-            <a href="index.php?page=edit" class="btn btn-sm btn-warning">Edit</a>
-            <a href="#" class="btn btn-sm btn-danger">Delete</a>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Linda Johnson</td>
-          <td>Female</td>
-          <td>01230321</td>
-          <td class="text-center">
-            <a href="index.php?page=edit" class="btn btn-sm btn-warning">Edit</a>
-            <a href="#" class="btn btn-sm btn-danger">Delete</a>
-          </td>
-        </tr>
+      <?php
+        if (empty($students)) {
+
+          echo '<tr><td colspan="5" class="text-center text-danger">Data is empty</td></tr>';
+
+        } else {
+
+          $no = 1;
+          foreach($students as $s) {
+            $id = $s['id'];
+            $name = $s['name'];
+            $gender = $s['gender'];
+            $tel = $s['tel'];
+            echo <<<HTML
+              <tr>
+                <td class="text-center">$no</td>
+                <td>USER- ID: $id</td>
+                <td>$name</td>
+                <td>$gender</td>
+                <td>$tel</td>
+                <td class="text-center">
+                  <a href="index.php?page=edit&id={$id}" class="btn btn-sm btn-warning">Edit</a>
+                  <a href="index.php?page=destroy&id={$id}" 
+                    class="btn btn-sm btn-danger"   
+                    onclick="return confirm('Are you Sure U want to Delete')"
+                  >
+                    Delete
+                  </a>
+                </td>
+              </tr>
+            HTML;
+
+            $no++;
+          }
+        }
+      ?>
       </tbody>
+
 </table>
